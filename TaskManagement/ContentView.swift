@@ -21,7 +21,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(" This productive tool is designed to help you better manage your task project-wise conveniently!")
                     .font(.subheadline)
-                // .bold()
+            
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .onAppear(perform: {
