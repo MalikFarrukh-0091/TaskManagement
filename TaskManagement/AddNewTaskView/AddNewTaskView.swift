@@ -21,6 +21,7 @@ struct AddNewTaskView: View {
             HStack {
                 Button(action: {
                     // Handle back action
+                    
                 }) {
                     Image(systemName: "arrow.left")
                         .foregroundColor(.black)

@@ -9,7 +9,15 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var currentTab: String = "Today"
-    @State private var tasks: [String] = [] // Replace this with your task model if available
+    @State private var tasks: [Task] = [
+        Task(title: "Buy groceries", category: "Today", backgroundColor: .yellow),
+        Task(title: "Finish project report", category: "Today", backgroundColor: .yellow),
+        Task(title: "Plan weekend trip", category: "Upcoming", backgroundColor: .green),
+        Task(title: "Submit tax documents", category: "Upcoming", backgroundColor: .green),
+        Task(title: "Morning workout", category: "Complete", backgroundColor: .blue),
+        Task(title: "Meeting with team", category: "Complete", backgroundColor: .blue),
+        Task(title: "Missed client call", category: "Failed", backgroundColor: .red)
+    ]
     
     var body: some View {
         NavigationStack {
@@ -33,17 +41,17 @@ struct HomeView: View {
                 
                 // Tasks Section
                 ScrollView {
-                    if tasks.isEmpty {
+                    if tasks.filter { $0.category == currentTab }.isEmpty {
                         Text("No tasks found!!!")
                             .foregroundColor(.gray)
                             .font(.callout)
                             .padding(.top, 50)
                     } else {
-                        ForEach(tasks, id: \.self) { task in
-                            Text(task) // Replace with your custom task row
+                        ForEach(tasks.filter { $0.category == currentTab }) { task in
+                            Text(task.title)
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color.gray.opacity(0.2))
+                                .background(task.backgroundColor.opacity(0.2))
                                 .cornerRadius(8)
                                 .padding(.horizontal)
                                 .padding(.top, 10)
@@ -68,6 +76,14 @@ struct HomeView: View {
             .navigationBarBackButtonHidden(true)
         }
     }
+}
+
+// Task Model
+struct Task: Identifiable {
+    let id = UUID()
+    let title: String
+    let category: String
+    let backgroundColor: Color
 }
 
 struct CustomSegmentedBar: View {
